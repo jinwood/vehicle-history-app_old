@@ -10,6 +10,10 @@ const Layout = ({ children }: any) => {
           {children}
         </main>
       </div>
+      {/* sticky footer */}
+      <footer className="bg-gray-900 text-white p-4 text-center w-full fixed bottom-0">
+        <p>Footer</p>
+      </footer>
     </div>
   );
 };
