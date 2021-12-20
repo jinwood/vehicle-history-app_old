@@ -8,6 +8,15 @@ function App() {
         <div className="text-center">
           <p>I'm the content</p>
         </div>
+        <div className="text-center">
+          <p>I'm the content</p>
+        </div>
+        <div className="text-center">
+          <p>I'm the content</p>
+        </div>
+        <div className="text-center">
+          <p>I'm the content</p>
+        </div>
       </Layout>
     </div>
   );
