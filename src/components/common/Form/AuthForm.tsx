@@ -1,0 +1,54 @@
+import React from "react";
+import { useForm } from "react-hook-form";
+import Button from "./Button";
+
+interface Values {
+  email: string;
+  password: string;
+}
+
+const AuthForm = ({
+  title,
+  setPassword,
+  setEmail,
+  handleAction,
+}: {
+  title: string;
+  setPassword: any;
+  setEmail: any;
+  handleAction: any;
+}) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: any) => console.log(data);
+
+  return (
+    <>
+      <h1>{title}</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col place-content-evenly items-center  h-40 "
+      >
+        <div className="form-group flex content-around w-9/12 justify-between">
+          <label htmlFor="email">Email</label>
+          <input {...register("email")} />
+        </div>
+
+        <div className="form-group flex content-around w-9/12 justify-between">
+          <label htmlFor="password">Password</label>
+          <input {...register("password")} />
+        </div>
+
+        {errors.email && <span>This field is required</span>}
+
+        <Button label={title} handleAction={handleAction} />
+      </form>
+    </>
+  );
+};
+
+export default AuthForm;

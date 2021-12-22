@@ -1,9 +1,8 @@
 import React from "react";
 import Layout from "./pages/layout/Default";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./pages/layout/Login";
 import Register from "./pages/layout/Register";
-import NoUser from "./pages/NoUser";
+import Auth from "./pages/Auth";
 
 function App() {
   return (
@@ -11,9 +10,8 @@ function App() {
       <Router>
         <Layout>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/no-user" element={<NoUser />} />
+            <Route path="/login" element={<Auth title="Login" />} />
+            <Route path="/register" element={<Auth title="Register" />} />
           </Routes>
         </Layout>
       </Router>
