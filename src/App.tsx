@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/common/Form/LoginForm";
 import Layout from "./pages/layout/Default";
 
 function App() {
