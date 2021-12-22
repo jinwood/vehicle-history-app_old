@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "./pages/layout/Default";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Register from "./pages/layout/Register";
 import Auth from "./pages/Auth";
 
 function App() {

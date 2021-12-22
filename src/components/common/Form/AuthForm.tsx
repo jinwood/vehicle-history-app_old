@@ -9,13 +9,9 @@ interface Values {
 
 const AuthForm = ({
   title,
-  setPassword,
-  setEmail,
   handleAction,
 }: {
   title: string;
-  setPassword: any;
-  setEmail: any;
   handleAction: any;
 }) => {
   const {
@@ -24,7 +20,10 @@ const AuthForm = ({
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => {
+    console.log("onsubmit");
+    handleAction(data);
+  };
 
   return (
     <>

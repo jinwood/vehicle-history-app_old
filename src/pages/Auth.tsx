@@ -1,3 +1,4 @@
+import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
 import React, { useState } from "react";
 import { useLocation } from "react-router";
 import AuthForm from "../components/common/Form/AuthForm";
@@ -7,11 +8,21 @@ const Auth = (props: { title: string }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const handleAction = (data: any) => {
+    const action = getAuthType();
+    const { email, password } = data;
+    console.log(email, password);
 
-  const handleAction = (action: AuthType) => {
-    console.log("action", action);
+    const authentication = getAuth();
+
+    if (action === AuthType.LOGIN) {
+    } else if (action === AuthType.REGISTER) {
+      createUserWithEmailAndPassword(authentication, email, password).then(
+        (response) => {
+          console.log("response", response);
+        }
+      );
+    }
   };
 
   const getAuthType = (): AuthType => {
@@ -26,12 +37,7 @@ const Auth = (props: { title: string }) => {
   };
 
   return (
-    <AuthForm
-      setEmail={setEmail}
-      setPassword={setPassword}
-      handleAction={() => handleAction(getAuthType())}
-      {...props}
-    />
+    <AuthForm handleAction={(data: any) => handleAction(data)} {...props} />
   );
 };
 
