@@ -12,7 +12,7 @@ const AuthForm = ({
   handleAction,
 }: {
   title: string;
-  handleAction: any;
+  handleAction: (formData: Values) => void;
 }) => {
   const {
     register,
@@ -20,9 +20,8 @@ const AuthForm = ({
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    console.log("onsubmit");
-    handleAction(data);
+  const onSubmit = (formData: Values) => {
+    handleAction(formData);
   };
 
   return (
