@@ -1,4 +1,4 @@
-import { addDoc, collection } from "@firebase/firestore";
+import { addDoc, collection, getDocs } from "@firebase/firestore";
 import { VehicleManufacturer } from "../config";
 import { db } from "../firebase";
 
@@ -23,4 +23,17 @@ export const createVehicle = async (vehicle: Vehicle) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getVehicles = async () => {
+  console.log("Getting vehicles...");
+  const querySnapshot = await getDocs(collection(db, "vehicles"));
+  const vehicles = querySnapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
+  console.log(vehicles);
+  return vehicles;
 };
