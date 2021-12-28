@@ -31,7 +31,7 @@ const Auth = (props: { title: string }) => {
           if (hasVehicles) {
             // navigate to my vehicles
           } else {
-            navigate("/");
+            navigate("/new-user");
           }
         })
         .catch((error) => {

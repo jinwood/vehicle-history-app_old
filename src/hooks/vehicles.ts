@@ -9,6 +9,6 @@ export const useHasVehicles = () => {
       console.log("useHasVehicles", vehicles.length);
       setHasVehicles(vehicles.length > 0);
     });
-  }, []);
+  }, [getVehicles]);
   return hasVehicles;
 };
