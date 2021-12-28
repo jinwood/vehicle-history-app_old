@@ -12,7 +12,9 @@ const Input = ({
   rest?: any;
 }) => {
   return (
-    <input className="rounded-full" name={name} ref={register} {...rest} />
+    <>
+      <input className="rounded-full" name={name} {...rest} />
+    </>
   );
 };
 

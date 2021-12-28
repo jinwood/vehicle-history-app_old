@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { FuelType, VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
@@ -72,7 +71,7 @@ const AddVehicle = ({
         </Group>
         <Group>
           <label htmlFor="notes">Notes</label>
-          <Input {...register("notes", { required: true })} />
+          <Input {...register("notes")} />
         </Group>
         <Button
           className="mt-3"
