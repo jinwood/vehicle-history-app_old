@@ -30,7 +30,7 @@ const AuthForm = ({
       <h1>{title}</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col place-content-evenly items-center  h-40 "
+        className="flex flex-col place-content-evenly items-center h-40 "
       >
         <div className="form-group flex content-around w-9/12 justify-between">
           <label htmlFor="email">Email</label>
