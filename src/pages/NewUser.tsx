@@ -4,7 +4,7 @@ const NewUser = () => {
   return (
     <div>
       Add Vehicle Page
-      <AddVehicle />
+      <AddVehicle handleAction={() => {}} />
     </div>
   );
 };
