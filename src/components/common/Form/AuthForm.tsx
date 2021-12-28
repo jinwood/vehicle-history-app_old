@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { emailRegex } from "../../../config";
 import Button from "./Button";
 
 interface Values {
@@ -33,12 +34,14 @@ const AuthForm = ({
       >
         <div className="form-group flex content-around w-9/12 justify-between">
           <label htmlFor="email">Email</label>
-          <input {...register("email")} />
+          <input
+            {...register("email", { required: true, pattern: emailRegex })}
+          />
         </div>
 
         <div className="form-group flex content-around w-9/12 justify-between">
           <label htmlFor="password">Password</label>
-          <input {...register("password")} />
+          <input {...register("password", { required: true })} />
         </div>
 
         {errors.email && <span>This field is required</span>}
