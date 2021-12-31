@@ -18,7 +18,6 @@ const AuthForm = ({
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (formData: Values) => {
@@ -35,13 +34,17 @@ const AuthForm = ({
         <div className="form-group flex content-around w-9/12 justify-between">
           <label htmlFor="email">Email</label>
           <input
+            value="foo@bar.com"
             {...register("email", { required: true, pattern: emailRegex })}
           />
         </div>
 
         <div className="form-group flex content-around w-9/12 justify-between">
           <label htmlFor="password">Password</label>
-          <input {...register("password", { required: true })} />
+          <input
+            value="password"
+            {...register("password", { required: true })}
+          />
         </div>
 
         {errors.email && <span>This field is required</span>}

@@ -7,14 +7,12 @@ import {
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/common/Form/AuthForm";
-import { useHasVehicles } from "../hooks/vehicles";
 import { AuthType } from "../types";
 
 const Auth = (props: { title: string }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname.split("/")[1];
-  const hasVehicles = useHasVehicles();
 
   const handleAction = (data: any) => {
     const action = getAuthType();
@@ -28,11 +26,7 @@ const Auth = (props: { title: string }) => {
     if (action === AuthType.LOGIN) {
       signInWithEmailAndPassword(authentication, email, password)
         .then((result: UserCredential) => {
-          if (hasVehicles) {
-            // navigate to my vehicles
-          } else {
-            navigate("/new-user");
-          }
+          navigate("/");
         })
         .catch((error) => {
           console.error(error.message);
