@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { getAuth } from "firebase/auth";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -14,6 +15,18 @@ function classNames(...classes: string[]) {
 }
 
 export default function Example() {
+  const auth = getAuth();
+  const signOut = () => {
+    console.log("signing out");
+    auth
+      .signOut()
+      .then(() => {
+        console.log("signed out");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800 w-full">
       {({ open }) => (
@@ -123,15 +136,15 @@ export default function Example() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
+                            onClick={signOut}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>

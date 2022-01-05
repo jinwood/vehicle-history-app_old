@@ -9,11 +9,11 @@ interface Values {
 }
 
 const AuthForm = ({
-  title,
   handleAction,
+  loading,
 }: {
-  title: string;
   handleAction: (formData: Values) => void;
+  loading: boolean;
 }) => {
   const {
     register,
@@ -26,7 +26,6 @@ const AuthForm = ({
 
   return (
     <>
-      <h1>{title}</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col place-content-evenly items-center h-40 "
@@ -49,7 +48,7 @@ const AuthForm = ({
 
         {errors.email && <span>This field is required</span>}
 
-        <Button label={title} handleAction={handleAction} />
+        <Button label={loading ? "..." : "Login"} handleAction={handleAction} />
       </form>
     </>
   );
