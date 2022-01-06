@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { FuelType, VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
@@ -15,6 +16,7 @@ const AddVehicle = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const ref = useRef(null);
   return (
     <div>
       <h1>Add Vehicle</h1>
@@ -24,6 +26,7 @@ const AddVehicle = ({
           <select
             className="rounded-full bg-white"
             {...register("manufacturer", { required: true })}
+            ref={ref}
           >
             {Object.keys(VehicleManufacturer).map((key: any) => (
               <option key={key} value={key}>
@@ -49,6 +52,7 @@ const AddVehicle = ({
           <select
             className="rounded-full bg-white"
             {...register("fuelType", { required: true })}
+            ref={ref}
           >
             {Object.keys(FuelType).map((key: any) => (
               <option key={key} value={key}>
@@ -57,7 +61,7 @@ const AddVehicle = ({
             ))}
           </select>
         </Group>
-        <Group>
+        {/* <Group>
           <label htmlFor="purchasePrice">Purchase Price</label>
           <Input {...register("purchasePrice", { required: true })} />
         </Group>
@@ -77,7 +81,7 @@ const AddVehicle = ({
           className="mt-3"
           label="Add Vehicle"
           handleAction={handleAction}
-        />
+        /> */}
       </form>
     </div>
   );
