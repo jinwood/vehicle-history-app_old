@@ -6,11 +6,11 @@ import Button from "./Button";
 import Group from "./Group";
 import Input from "./Input";
 
-const AddVehicle = ({
+function AddVehicle({
   handleAction,
 }: {
   handleAction: (formData: Vehicle) => void;
-}) => {
+}) {
   const {
     register,
     handleSubmit,
@@ -61,7 +61,7 @@ const AddVehicle = ({
             ))}
           </select>
         </Group>
-        {/* <Group>
+        <Group>
           <label htmlFor="purchasePrice">Purchase Price</label>
           <Input {...register("purchasePrice", { required: true })} />
         </Group>
@@ -81,10 +81,10 @@ const AddVehicle = ({
           className="mt-3"
           label="Add Vehicle"
           handleAction={handleAction}
-        /> */}
+        />
       </form>
     </div>
   );
-};
+}
 
 export default AddVehicle;

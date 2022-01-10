@@ -1,11 +1,11 @@
-import { getAuth } from "firebase/auth";
+import { getAuth, User } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/auth";
 import { useHasVehicles } from "../hooks/vehicles";
 
-const Home = () => {
-  const [user, loading, error] = useAuthState(getAuth());
+const Home = ({ user }: { user: User }) => {
   const hasVehicles = useHasVehicles();
   const location = useLocation();
   return (

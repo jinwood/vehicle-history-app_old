@@ -1,32 +1,30 @@
-import { getAuth } from "firebase/auth";
+import { getAuth, User } from "firebase/auth";
+import { useEffect } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/common/Form/AuthForm";
+import { useProvideAuth } from "../hooks/auth";
 
 const Login = () => {
-  const auth = getAuth();
   const navigate = useNavigate();
+  const { signIn } = useProvideAuth();
 
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
-
-  if (user) {
-    navigate("/");
-  }
-
-  const handleAction = (data: { email: string; password: string }) => {
-    const { email, password } = data;
-    signInWithEmailAndPassword(email, password);
-  };
+  const handleSignIn = ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => signIn(email, password).then(() => navigate("/"));
 
   return (
     <>
       <h1>Login Page</h1>
       <AuthForm
-        handleAction={(data: any) => handleAction(data)}
-        loading={loading}
+        handleAction={(data: any) => handleSignIn(data)}
+        loading={false}
       />
-      <p>{error?.message}</p>
+      {/* <p>{error?.message}</p> */}
     </>
   );
 };
