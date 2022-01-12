@@ -1,8 +1,6 @@
-import { getAuth, User } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { User } from "firebase/auth";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/auth";
 import { useHasVehicles } from "../hooks/vehicles";
 
 const Home = ({ user }: { user: User }) => {

@@ -1,13 +1,11 @@
-import { getAuth, User } from "firebase/auth";
-import { useEffect } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/common/Form/AuthForm";
 import { useProvideAuth } from "../hooks/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { signIn } = useProvideAuth();
+  const { signIn, loading } = useProvideAuth();
+  console.log(loading);
 
   const handleSignIn = ({
     email,
@@ -15,14 +13,19 @@ const Login = () => {
   }: {
     email: string;
     password: string;
-  }) => signIn(email, password).then(() => navigate("/"));
+  }) => {
+    if (!email || !password) {
+      return;
+    }
+    signIn(email, password).then(() => navigate("/"));
+  };
 
   return (
     <>
       <h1>Login Page</h1>
       <AuthForm
         handleAction={(data: any) => handleSignIn(data)}
-        loading={false}
+        loading={loading}
       />
       {/* <p>{error?.message}</p> */}
     </>

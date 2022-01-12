@@ -21,6 +21,9 @@ const AuthForm = ({
     formState: { errors },
   } = useForm();
   const onSubmit = (formData: Values) => {
+    if (!formData.email || !formData.password) {
+      return;
+    }
     handleAction(formData);
   };
 

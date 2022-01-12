@@ -1,20 +1,13 @@
-import React, { ReactNode } from "react";
 import Layout from "./pages/layout/Default";
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import { getAuth } from "firebase/auth";
 import Login from "./pages/Login";
 import AddVehicle from "./pages/AddVehicle";
-import { ProvideAuth, useAuth, useProvideAuth } from "./hooks/auth";
+import { ProvideAuth, useProvideAuth } from "./hooks/auth";
+import Loading from "./pages/Loading";
 
 const App = () => {
-  const auth = useProvideAuth();
+  const { auth: user } = useProvideAuth();
   return (
     <div className="App bg-slate-300">
       <Router>
@@ -23,12 +16,12 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<></>} />
 
-            {auth.user ? (
+            {user ? (
               <Route
                 path="/"
                 element={
                   <ProvideAuth>
-                    <Home user={auth.user} />
+                    <Home user={user} />
                   </ProvideAuth>
                 }
               />
