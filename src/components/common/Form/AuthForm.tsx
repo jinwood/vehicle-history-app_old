@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "../../../config";
+import LoadingSpinner from "../LoadingSpinner";
 import Button from "./Button";
 
 interface Values {
@@ -51,7 +52,8 @@ const AuthForm = ({
 
         {errors.email && <span>This field is required</span>}
 
-        <Button label={loading ? "..." : "Login"} handleAction={handleAction} />
+        {!loading && <Button label={"Login"} handleAction={handleAction} />}
+        {loading && <LoadingSpinner />}
       </form>
     </>
   );

@@ -32,17 +32,20 @@ export function useProvideAuth() {
   const auth = getAuth();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const signIn = (email: string, password: string) => {
-    console.log("signIn", email, password);
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password).then(
-      (response) => {
+    return signInWithEmailAndPassword(auth, email, password)
+      .then((response) => {
         setLoading(false);
         setUser(response.user);
         return response.user;
-      }
-    );
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error);
+      });
   };
 
   const signUp = (email: string, password: string) => {
@@ -84,6 +87,7 @@ export function useProvideAuth() {
   return {
     auth: user,
     loading,
+    error,
     signIn,
     signUp,
     signOut,

@@ -4,7 +4,7 @@ import { useProvideAuth } from "../hooks/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { signIn, loading } = useProvideAuth();
+  const { signIn, loading, error } = useProvideAuth();
   console.log(loading);
 
   const handleSignIn = ({
@@ -27,7 +27,7 @@ const Login = () => {
         handleAction={(data: any) => handleSignIn(data)}
         loading={loading}
       />
-      {/* <p>{error?.message}</p> */}
+      <p>{error?.message}</p>
     </>
   );
 };
