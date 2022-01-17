@@ -52,7 +52,9 @@ const AuthForm = ({
 
         {errors.email && <span>This field is required</span>}
 
-        {!loading && <Button label={"Login"} handleAction={handleAction} />}
+        {!loading && (
+          <Button type="button" label={"Login"} handleAction={handleAction} />
+        )}
         {loading && <LoadingSpinner />}
       </form>
     </>
