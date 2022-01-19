@@ -1,6 +1,6 @@
 //https://webdesign.tutsplus.com/tutorials/how-to-create-a-responsive-form-using-tailwindcss--cms-34128
 import { useRef } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { FuelType, VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
 import Button from "./Button";
@@ -15,11 +15,12 @@ function AddVehicle({
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
   const ref = useRef(null);
 
-  const onSubmit = (data: Vehicle, e: any) => {
-    console.log("onSubmit", data, e);
+  const onSubmit = () => {
+    console.log("onSubmit");
   };
 
   const inputClasses =
@@ -28,6 +29,7 @@ function AddVehicle({
     "uppercase tracking-wide text-black text-xs font-bold mb-2";
   const selectClasses =
     "w-full bg-gray-200 border border-gray-200 text-black text-xs py-3 px-4 pr-8 mb-3 rounded";
+  console.log(errors);
 
   return (
     <div>
@@ -37,7 +39,13 @@ function AddVehicle({
             <label htmlFor="manufacturer" className={labelClasses}>
               Manufacturer
             </label>
-            <select
+            <Controller
+              control={control}
+              options={Object.keys(VehicleManufacturer)}
+              className={selectClasses}
+              defaultValue={VehicleManufacturer.Acura}
+            />
+            {/* <select
               className={selectClasses}
               {...register("manufacturer", { required: true })}
               ref={ref}
@@ -47,7 +55,8 @@ function AddVehicle({
                   {VehicleManufacturer[key as keyof typeof VehicleManufacturer]}
                 </option>
               ))}
-            </select>
+            </select> */}
+            {errors.manufacturer && <span>This field is required</span>}
           </Group>
           <Group halfWidth>
             <label htmlFor="model" className={labelClasses}>
@@ -57,6 +66,7 @@ function AddVehicle({
               className={inputClasses}
               {...register("model", { required: true, value: "M235i" })}
             />
+            {errors.model && <span>This field is required</span>}
           </Group>
         </div>
         <div className="-mx-3 md:flex mb-6">
@@ -68,6 +78,7 @@ function AddVehicle({
               className={inputClasses}
               {...register("year", { required: true, value: "2015" })}
             />
+            {errors.year && <span>This field is required</span>}
           </Group>
           <Group halfWidth>
             <label htmlFor="engineSize" className={labelClasses}>
@@ -77,6 +88,7 @@ function AddVehicle({
               className={inputClasses}
               {...register("engineSize", { required: true, value: "3000" })}
             />
+            {errors.engineSize && <span>This field is required</span>}
           </Group>
         </div>
 
@@ -96,6 +108,7 @@ function AddVehicle({
                 </option>
               ))}
             </select>
+            {errors.fuelType && <span>This field is required</span>}
           </Group>
           <Group halfWidth>
             <label htmlFor="purchasePrice" className={labelClasses}>
@@ -105,6 +118,7 @@ function AddVehicle({
               className={inputClasses}
               {...register("purchasePrice", { required: true, value: "3000" })}
             />
+            {errors.purchasePrice && <span>This field is required</span>}
           </Group>
         </div>
         <div className="-mx-3 md:flex mb-6">
@@ -120,6 +134,7 @@ function AddVehicle({
                 value: "01/06/2020",
               })}
             />
+            {errors.purchaseDate && <span>This field is required</span>}
           </Group>
           <Group halfWidth>
             <label htmlFor="mileage" className={labelClasses}>
@@ -129,6 +144,7 @@ function AddVehicle({
               className={inputClasses}
               {...register("mileage", { required: true, value: "3000" })}
             />
+            {errors.mileage && <span>This field is required</span>}
           </Group>
         </div>
 
