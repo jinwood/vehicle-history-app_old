@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getVehicles } from "../store/vehicle";
+import { createVehicle, getVehicles, Vehicle } from "../store/vehicle";
 
 export const useHasVehicles = () => {
   console.log("useHasVehicles");
@@ -12,3 +12,18 @@ export const useHasVehicles = () => {
   }, []);
   return hasVehicles;
 };
+
+export function useCreateVehicle(newVehicle: Vehicle) {
+  console.log("useCreateVehicle");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const result = createVehicle(newVehicle).then((result) => {
+      console.log("useCreateVehicle", result);
+      setLoading(false);
+    });
+  }, []);
+  return {
+    loading,
+  };
+}

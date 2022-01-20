@@ -2,15 +2,12 @@ import AddVehicle from "../components/common/Form/AddVehicle";
 import { Vehicle } from "../store/vehicle";
 
 const NewUser = () => {
-  const handleAction = (event: Event, data: Vehicle) => {
-    event.preventDefault();
-    console.log("handleAction", data);
+  const handleAction = (vehicle: Vehicle) => {
+    console.log("handleAction", vehicle);
   };
   return (
     <div>
-      <AddVehicle
-        handleAction={(e: Event, data: Vehicle) => handleAction(e, data)}
-      />
+      <AddVehicle handleAction={(vehicle: Vehicle) => handleAction(vehicle)} />
     </div>
   );
 };

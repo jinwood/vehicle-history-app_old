@@ -9,18 +9,19 @@ import Group from "./Group";
 function AddVehicle({
   handleAction,
 }: {
-  handleAction: (data: any, e: any) => void;
+  handleAction: (data: Vehicle) => void;
 }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     control,
-  } = useForm();
+    formState: { errors },
+    watch,
+  } = useForm<Vehicle>();
   const ref = useRef(null);
 
-  const onSubmit = () => {
-    console.log("onSubmit");
+  const onSubmit = (vehicle: Vehicle) => {
+    handleAction(vehicle);
   };
 
   const inputClasses =
@@ -39,23 +40,17 @@ function AddVehicle({
             <label htmlFor="manufacturer" className={labelClasses}>
               Manufacturer
             </label>
-            <Controller
-              control={control}
-              options={Object.keys(VehicleManufacturer)}
-              className={selectClasses}
-              defaultValue={VehicleManufacturer.Acura}
-            />
-            {/* <select
+
+            <select
               className={selectClasses}
               {...register("manufacturer", { required: true })}
-              ref={ref}
             >
               {Object.keys(VehicleManufacturer).map((key: any) => (
                 <option key={key} value={key}>
                   {VehicleManufacturer[key as keyof typeof VehicleManufacturer]}
                 </option>
               ))}
-            </select> */}
+            </select>
             {errors.manufacturer && <span>This field is required</span>}
           </Group>
           <Group halfWidth>
@@ -76,7 +71,7 @@ function AddVehicle({
             </label>
             <input
               className={inputClasses}
-              {...register("year", { required: true, value: "2015" })}
+              {...register("year", { required: true, value: 2015 })}
             />
             {errors.year && <span>This field is required</span>}
           </Group>
@@ -86,7 +81,7 @@ function AddVehicle({
             </label>
             <input
               className={inputClasses}
-              {...register("engineSize", { required: true, value: "3000" })}
+              {...register("engineSize", { required: true, value: 3000 })}
             />
             {errors.engineSize && <span>This field is required</span>}
           </Group>
@@ -100,7 +95,6 @@ function AddVehicle({
             <select
               className={selectClasses}
               {...register("fuelType", { required: true })}
-              ref={ref}
             >
               {Object.keys(FuelType).map((key: any) => (
                 <option key={key} value={key}>
@@ -116,7 +110,7 @@ function AddVehicle({
             </label>
             <input
               className={inputClasses}
-              {...register("purchasePrice", { required: true, value: "3000" })}
+              {...register("purchasePrice", { required: true, value: 3000 })}
             />
             {errors.purchasePrice && <span>This field is required</span>}
           </Group>
@@ -131,7 +125,7 @@ function AddVehicle({
               className={inputClasses}
               {...register("purchaseDate", {
                 required: true,
-                value: "01/06/2020",
+                value: new Date("01/06/2020"),
               })}
             />
             {errors.purchaseDate && <span>This field is required</span>}
@@ -142,7 +136,7 @@ function AddVehicle({
             </label>
             <input
               className={inputClasses}
-              {...register("mileage", { required: true, value: "3000" })}
+              {...register("mileage", { required: true, value: 3000 })}
             />
             {errors.mileage && <span>This field is required</span>}
           </Group>
