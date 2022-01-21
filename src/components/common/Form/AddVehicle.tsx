@@ -14,9 +14,7 @@ function AddVehicle({
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
-    watch,
   } = useForm<Vehicle>();
   const ref = useRef(null);
 

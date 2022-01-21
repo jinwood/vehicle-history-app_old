@@ -20,9 +20,9 @@ export const createVehicle = async (vehicle: Vehicle) => {
       ...vehicle,
     });
     console.log(`Vehicle created with id: ${docRef.id}`);
-    return await docRef?.id.length > 0;
+    return (await docRef?.id.length) > 0;
   } catch (error) {
-    console.error(error);
+    return String(error);
   }
 };
 
