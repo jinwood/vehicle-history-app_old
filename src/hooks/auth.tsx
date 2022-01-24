@@ -14,8 +14,20 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 const authContext = createContext<User | null | null>(null);
+
+export function RequireAuth({ children }: { children: JSX.Element }) {
+  const { auth: user } = useProvideAuth();
+  let location = useLocation();
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
+}
 
 export function ProvideAuth({ children }: { children: ReactNode }) {
   const { auth: user } = useProvideAuth();
