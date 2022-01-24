@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "../../../config";
+import { AuthType } from "../../../types";
 import LoadingSpinner from "../LoadingSpinner";
 import Button from "./Button";
 
@@ -9,19 +10,23 @@ interface Values {
   password: string;
 }
 
-const AuthForm = ({
-  handleAction,
-  loading,
-}: {
-  handleAction: (formData: Values) => void;
+interface Props {
+  type: AuthType;
+  handleAction: (values: Values) => void;
   loading: boolean;
-}) => {
+}
+
+const AuthForm = ({ handleAction, loading, type }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const buttonText = type === AuthType.LOGIN ? "Sign In" : "Register";
+
   const onSubmit = (formData: Values) => {
+    console.log("onSubmit", formData);
     if (!formData.email || !formData.password) {
       return;
     }
@@ -53,7 +58,11 @@ const AuthForm = ({
         {errors.email && <span>This field is required</span>}
 
         {!loading && (
-          <Button type="button" label={"Login"} handleAction={handleAction} />
+          <Button
+            type="submit"
+            label={buttonText}
+            handleAction={handleAction}
+          />
         )}
         {loading && <LoadingSpinner />}
       </form>

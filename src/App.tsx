@@ -1,20 +1,24 @@
 import Layout from "./pages/layout/Default";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Auth from "./pages/Auth";
 import AddVehicle from "./pages/AddVehicle";
-import { ProvideAuth, useProvideAuth } from "./hooks/auth";
-import Loading from "./pages/Loading";
+import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
+import { AuthType } from "./types";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
+  console.log(`user is ${user}`);
   return (
     <div className="App bg-slate-300">
       <Router>
         <Layout>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<></>} />
+            <Route path="/login" element={<Auth type={AuthType.LOGIN} />} />
+            <Route
+              path="/register"
+              element={<Auth type={AuthType.REGISTER} />}
+            />
 
             {user ? (
               <Route
@@ -26,14 +30,16 @@ const App = () => {
                 }
               />
             ) : (
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Auth type={AuthType.LOGIN} />} />
             )}
             <Route
               path="/add-vehicle"
               element={
-                <ProvideAuth>
-                  <AddVehicle />
-                </ProvideAuth>
+                <RequireAuth>
+                  <ProvideAuth>
+                    <AddVehicle />
+                  </ProvideAuth>
+                </RequireAuth>
               }
             />
           </Routes>
