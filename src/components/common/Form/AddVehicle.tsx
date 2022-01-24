@@ -28,7 +28,6 @@ function AddVehicle({
     "uppercase tracking-wide text-black text-xs font-bold mb-2";
   const selectClasses =
     "w-full bg-gray-200 border border-gray-200 text-black text-xs py-3 px-4 pr-8 mb-3 rounded";
-  console.log(errors);
 
   return (
     <div>

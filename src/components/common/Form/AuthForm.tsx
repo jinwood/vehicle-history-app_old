@@ -26,7 +26,6 @@ const AuthForm = ({ handleAction, loading, type }: Props) => {
   const buttonText = type === AuthType.LOGIN ? "Sign In" : "Register";
 
   const onSubmit = (formData: Values) => {
-    console.log("onSubmit", formData);
     if (!formData.email || !formData.password) {
       return;
     }

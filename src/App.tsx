@@ -8,7 +8,6 @@ import { AuthType } from "./types";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
-  console.log(`user is ${user}`);
   return (
     <div className="App bg-slate-300">
       <Router>
