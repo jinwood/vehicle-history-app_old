@@ -6,16 +6,64 @@ import Auth from "./pages/Auth";
 import AddVehicle from "./pages/AddVehicle";
 import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
 import { AuthType } from "./types";
-import { Box } from "@mui/material";
+import {
+  Badge,
+  Box,
+  CssBaseline,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import AppBar from "./components/layout/AppBar";
+import { MenuIcon } from "@heroicons/react/outline";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
   const mdTheme = createTheme();
 
+  const open = true;
+  const toggleDrawer = () => {};
+
   return (
     <div className="App bg-slate-300">
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <AppBar position="absolute">
+            <Toolbar
+              sx={{
+                pr: "24px", // keep right padding when drawer closed
+              }}
+            >
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                  marginRight: "36px",
+                  ...(open && { display: "none" }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                Dashboard
+              </Typography>
+              <IconButton color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  Notifications Icon
+                </Badge>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+
           <Router>
             <Layout>
               <Routes>
