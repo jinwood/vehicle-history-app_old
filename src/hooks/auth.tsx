@@ -19,11 +19,11 @@ import { Navigate, useLocation } from "react-router-dom";
 const authContext = createContext<User | null | null>(null);
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
-  const { auth: user } = useProvideAuth();
+  const { auth: user, loading } = useProvideAuth();
   console.log("RequireAuth", user);
   let location = useLocation();
 
-  if (!user) {
+  if (!user && !loading) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -97,6 +97,7 @@ export function useProvideAuth() {
     return () => unsubscribe();
   }, [auth]);
   console.log("user", user);
+  console.log(`loading ${loading}`);
 
   return {
     auth: user,
