@@ -23,7 +23,6 @@ export default function Auth({ type }: AuthProps) {
     email: string;
     password: string;
   }) => {
-    console.log(`signing in with ${email} and ${password}`);
     if (!email || !password) {
       return;
     }

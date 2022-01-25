@@ -19,7 +19,6 @@ export const createVehicle = async (vehicle: Vehicle) => {
     const docRef = await addDoc(collection(db, "vehicles"), {
       ...vehicle,
     });
-    console.log(`Vehicle created with id: ${docRef.id}`);
     return (await docRef?.id.length) > 0;
   } catch (error) {
     return String(error);
@@ -27,7 +26,6 @@ export const createVehicle = async (vehicle: Vehicle) => {
 };
 
 export const getVehicles = async () => {
-  console.log("Getting vehicles...");
   const querySnapshot = await getDocs(collection(db, "vehicles"));
   const vehicles = querySnapshot.docs.map((doc) => {
     return {
@@ -35,6 +33,5 @@ export const getVehicles = async () => {
       ...doc.data(),
     };
   });
-  console.log(vehicles);
   return vehicles;
 };

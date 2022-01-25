@@ -5,7 +5,6 @@ import { useHasVehicles } from "../hooks/vehicles";
 
 const Home = ({ user }: { user: User }) => {
   const hasVehicles = useHasVehicles();
-  const location = useLocation();
   return (
     <>
       <div>You're logged in as {user?.email}</div>
