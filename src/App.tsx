@@ -7,7 +7,7 @@ import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
 import { AuthType } from "./types";
 
 const App = () => {
-  const { auth: user, loading } = useProvideAuth();
+  const { auth: user } = useProvideAuth();
   return (
     <div className="App bg-slate-300">
       <Router>

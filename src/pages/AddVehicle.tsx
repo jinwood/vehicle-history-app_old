@@ -3,9 +3,7 @@ import { Vehicle, createVehicle } from "../store/vehicle";
 
 export default function NewUser() {
   const handleAction = (vehicle: Vehicle) => {
-    console.log("handleAction", vehicle);
     createVehicle(vehicle).then((vehicleId) => {
-      debugger;
       console.log("vehicleId", vehicleId);
     });
   };

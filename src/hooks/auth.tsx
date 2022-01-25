@@ -20,7 +20,7 @@ const authContext = createContext<User | null | null>(null);
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
   const { auth: user, loading } = useProvideAuth();
-  console.log("RequireAuth", user);
+
   let location = useLocation();
 
   if (!user && !loading) {
@@ -96,8 +96,6 @@ export function useProvideAuth() {
 
     return () => unsubscribe();
   }, [auth]);
-  console.log("user", user);
-  console.log(`loading ${loading}`);
 
   return {
     auth: user,
