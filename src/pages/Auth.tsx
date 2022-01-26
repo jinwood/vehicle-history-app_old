@@ -1,7 +1,7 @@
+import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/common/Form/AuthForm";
-import Button from "../components/common/Form/Button";
 import { useProvideAuth } from "../hooks/auth";
 import { AuthType } from "../types";
 
@@ -36,15 +36,14 @@ export default function Auth({ type }: AuthProps) {
   return (
     <>
       <Button
-        type="button"
-        size="small"
-        label={authType !== AuthType.LOGIN ? "Sign In" : "Register"}
-        handleAction={() =>
+        onClick={() =>
           setAuthType(
             authType === AuthType.REGISTER ? AuthType.LOGIN : AuthType.REGISTER
           )
         }
-      />
+      >
+        {authType !== AuthType.LOGIN ? "Sign In" : "Register"}
+      </Button>
       <AuthForm
         handleAction={(data: any) => handleSignIn(data)}
         loading={loading}
