@@ -2,6 +2,7 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Container,
+  Paper,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -9,7 +10,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
-import NavBar from "./NavBar";
+import { Box } from "@mui/system";
 
 const Layout = ({ children }: any) => {
   return (
@@ -26,20 +27,17 @@ const Layout = ({ children }: any) => {
           Vehicle History
         </Typography>
       </Toolbar>
-      <div className="w-full flex flex-row  flex-wrap  py-4 flex-grow h-full mb-5">
-        <main role="main" className="w-full flex-grow pt-1 px-3 ">
-          {children}
-        </main>
-      </div>
-      {/* sticky footer */}
-      <footer className="bg-gray-900 text-white p-4 text-center w-full fixed bottom-0">
-        <p>Footer</p>
-      </footer>
-      <BottomNavigation showLabels>
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
-      </BottomNavigation>
+      <Box>{children}</Box>
+      <Paper
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        elevation={3}
+      >
+        <BottomNavigation showLabels>
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        </BottomNavigation>
+      </Paper>
     </Container>
   );
 };
