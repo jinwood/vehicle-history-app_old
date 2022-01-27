@@ -1,10 +1,16 @@
 //https://webdesign.tutsplus.com/tutorials/how-to-create-a-responsive-form-using-tailwindcss--cms-34128
-import { useRef } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { FuelType, VehicleManufacturer } from "../../../config";
+import LoadingButton from "@mui/lab/LoadingButton";
+import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
+import { VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
-import Button from "./Button";
-import Group from "./Group";
+import { FuelType } from "../../../types";
 
 function AddVehicle({
   handleAction,
@@ -16,140 +22,137 @@ function AddVehicle({
     handleSubmit,
     formState: { errors },
   } = useForm<Vehicle>();
-  const ref = useRef(null);
 
   const onSubmit = (vehicle: Vehicle) => {
     handleAction(vehicle);
   };
 
-  const inputClasses =
-    "px-8  w-full border rounded py-2 text-gray-700 focus:outline-none items-center";
-  const labelClasses =
-    "uppercase tracking-wide text-black text-xs font-bold mb-2";
-  const selectClasses =
-    "w-full bg-gray-200 border border-gray-200 text-black text-xs py-3 px-4 pr-8 mb-3 rounded";
-
   return (
-    <div>
-      <form className="px-12 pb-10" onSubmit={handleSubmit(onSubmit)}>
-        <div className="-mx-3 md:flex mb-6">
-          <Group halfWidth>
-            <label htmlFor="manufacturer" className={labelClasses}>
-              Manufacturer
-            </label>
-
-            <select
-              className={selectClasses}
-              {...register("manufacturer", { required: true })}
-            >
-              {Object.keys(VehicleManufacturer).map((key: any) => (
-                <option key={key} value={key}>
-                  {VehicleManufacturer[key as keyof typeof VehicleManufacturer]}
-                </option>
-              ))}
-            </select>
-            {errors.manufacturer && <span>This field is required</span>}
-          </Group>
-          <Group halfWidth>
-            <label htmlFor="model" className={labelClasses}>
-              Model
-            </label>
-            <input
-              className={inputClasses}
-              {...register("model", { required: true, value: "M235i" })}
-            />
-            {errors.model && <span>This field is required</span>}
-          </Group>
-        </div>
-        <div className="-mx-3 md:flex mb-6">
-          <Group halfWidth>
-            <label htmlFor="year" className={labelClasses}>
-              Year
-            </label>
-            <input
-              className={inputClasses}
-              {...register("year", { required: true, value: 2015 })}
-            />
-            {errors.year && <span>This field is required</span>}
-          </Group>
-          <Group halfWidth>
-            <label htmlFor="engineSize" className={labelClasses}>
-              Engine Size
-            </label>
-            <input
-              className={inputClasses}
-              {...register("engineSize", { required: true, value: 3000 })}
-            />
-            {errors.engineSize && <span>This field is required</span>}
-          </Group>
-        </div>
-
-        <div className="-mx-3 md:flex mb-6">
-          <Group halfWidth>
-            <label htmlFor="fuelType" className={labelClasses}>
-              Fuel Type
-            </label>
-            <select
-              className={selectClasses}
-              {...register("fuelType", { required: true })}
-            >
-              {Object.keys(FuelType).map((key: any) => (
-                <option key={key} value={key}>
-                  {FuelType[key as keyof typeof FuelType]}
-                </option>
-              ))}
-            </select>
-            {errors.fuelType && <span>This field is required</span>}
-          </Group>
-          <Group halfWidth>
-            <label htmlFor="purchasePrice" className={labelClasses}>
-              Purchase Price
-            </label>
-            <input
-              className={inputClasses}
-              {...register("purchasePrice", { required: true, value: 3000 })}
-            />
-            {errors.purchasePrice && <span>This field is required</span>}
-          </Group>
-        </div>
-        <div className="-mx-3 md:flex mb-6">
-          <Group halfWidth>
-            <label htmlFor="purchaseDate" className={labelClasses}>
-              Purchase Date
-            </label>
-            <input
-              type={"date"}
-              className={inputClasses}
-              {...register("purchaseDate", {
-                required: true,
-                value: new Date("01/06/2020"),
-              })}
-            />
-            {errors.purchaseDate && <span>This field is required</span>}
-          </Group>
-          <Group halfWidth>
-            <label htmlFor="mileage" className={labelClasses}>
-              Mileage
-            </label>
-            <input
-              className={inputClasses}
-              {...register("mileage", { required: true, value: 3000 })}
-            />
-            {errors.mileage && <span>This field is required</span>}
-          </Group>
-        </div>
-
-        <div className="-mx-3 md:flex mb-6">
-          <Group>
-            <label htmlFor="notes" className={labelClasses}>
-              Notes
-            </label>
-            <input className={inputClasses} {...register("notes")} />
-          </Group>
-        </div>
-        <Button className="mt-3" label="Add Vehicle" type="submit" />
-      </form>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ mt: 3, overflow: "scroll" }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id="manufacturer-label">Manufacturer</InputLabel>
+              <Select
+                label="Manufacturer"
+                labelId="manufacturer-label"
+                {...register("manufacturer", { required: true })}
+              >
+                {Object.keys(VehicleManufacturer).map((key: any) => (
+                  <MenuItem key={key} value={key}>
+                    {
+                      VehicleManufacturer[
+                        key as keyof typeof VehicleManufacturer
+                      ]
+                    }
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <FormControl fullWidth>
+              <TextField
+                fullWidth={true}
+                label="Model"
+                {...register("model", { required: true, value: "M235i" })}
+              />
+              {errors.model && <span>This field is required</span>}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={1}>
+            <FormControl fullWidth>
+              <TextField
+                label="Year"
+                {...register("year", { required: true, value: 2020 })}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={1}>
+            <FormControl fullWidth>
+              <TextField
+                label="Engine Size"
+                {...register("engineSize", { required: true, value: 3000 })}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={1}>
+            <FormControl fullWidth>
+              <InputLabel id="fuelType-label">Fuel Type</InputLabel>
+              <Select
+                label="Fuel Type"
+                labelId="fuelType-label"
+                {...register("fuelType", { required: true })}
+              >
+                {Object.keys(FuelType).map((key: any) => (
+                  <MenuItem key={key} value={key}>
+                    {FuelType[key as keyof typeof FuelType]}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={1}>
+            <FormControl fullWidth>
+              <TextField
+                label="Purchase Price"
+                {...register("purchasePrice", { required: true, value: 19000 })}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <TextField
+                InputLabelProps={{ shrink: true }}
+                type={"date"}
+                label="Purchase Date"
+                {...register("purchaseDate", {
+                  required: true,
+                  value: new Date("01/06/2020"),
+                })}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <TextField
+                label="Mileage"
+                {...register("mileage", {
+                  required: true,
+                  value: 50000,
+                })}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <TextField
+                label="Notes"
+                {...register("notes", {
+                  required: true,
+                })}
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <LoadingButton variant="contained" type="submit" sx={{ mt: 2 }}>
+            Add Vehicle
+          </LoadingButton>
+        </Grid>
+      </Box>
+    </Box>
   );
 }
 

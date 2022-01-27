@@ -67,11 +67,3 @@ export enum VehicleManufacturer {
   "Volkswagen" = "Volkswagen",
   "Volvo" = "Volvo",
 }
-
-export enum FuelType {
-  "Petrol" = "Petrol",
-  "Diesel" = "Diesel",
-  "Electric" = "Electric",
-  "HybridPetrol" = "Hybrid Petrol",
-  "HybridDiesel" = "Hybrid Diesel",
-}

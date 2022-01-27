@@ -1,17 +1,13 @@
+import { Box, Button, TextField } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "../../../config";
-import { AuthType } from "../../../types";
+import { AuthType, Credentials } from "../../../types";
 import LoadingSpinner from "../LoadingSpinner";
-import Button from "./Button";
-
-interface Values {
-  email: string;
-  password: string;
-}
 
 interface Props {
   type: AuthType;
-  handleAction: (values: Values) => void;
+  handleAction: (values: Credentials) => void;
   loading: boolean;
 }
 
@@ -20,11 +16,11 @@ const AuthForm = ({ handleAction, loading, type }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<Credentials>();
 
   const buttonText = type === AuthType.LOGIN ? "Sign In" : "Register";
 
-  const onSubmit = (formData: Values) => {
+  const onSubmit = (formData: Credentials) => {
     if (!formData.email || !formData.password) {
       return;
     }
@@ -33,37 +29,37 @@ const AuthForm = ({ handleAction, loading, type }: Props) => {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col place-content-evenly items-center h-40 "
-      >
-        <div className="form-group flex content-around w-9/12 justify-between">
-          <label htmlFor="email">Email</label>
-          <input
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+        <div>
+          <TextField
+            label="Email"
+            type="email"
             value="foo@bar.com"
+            margin="normal"
+            required
+            fullWidth
             {...register("email", { required: true, pattern: emailRegex })}
           />
         </div>
 
-        <div className="form-group flex content-around w-9/12 justify-between">
-          <label htmlFor="password">Password</label>
-          <input
+        <div>
+          <TextField
+            label="Password"
+            type="password"
             value="password"
+            margin="normal"
+            required
+            fullWidth
             {...register("password", { required: true })}
           />
         </div>
 
         {errors.email && <span>This field is required</span>}
 
-        {!loading && (
-          <Button
-            type="submit"
-            label={buttonText}
-            handleAction={handleAction}
-          />
-        )}
-        {loading && <LoadingSpinner />}
-      </form>
+        <LoadingButton variant="contained" type="submit" loading={loading}>
+          {buttonText}
+        </LoadingButton>
+      </Box>
     </>
   );
 };
