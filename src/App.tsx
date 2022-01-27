@@ -7,7 +7,6 @@ import AddVehicle from "./pages/AddVehicle";
 import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
 import { AuthType } from "./types";
 import { Box, CssBaseline } from "@mui/material";
-import AppBar from "./components/layout/AppBar";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
@@ -18,8 +17,6 @@ const App = () => {
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <AppBar></AppBar>
-
           <Router>
             <Layout>
               <Routes>

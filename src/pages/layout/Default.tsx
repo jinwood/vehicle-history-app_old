@@ -2,6 +2,7 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Container,
+  Link,
   Paper,
   Toolbar,
   Typography,
@@ -9,6 +10,7 @@ import {
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DirectionsCarFilledTwoToneIcon from "@mui/icons-material/DirectionsCarFilledTwoTone";
 
 import { Box } from "@mui/system";
 
@@ -16,16 +18,9 @@ const Layout = ({ children }: any) => {
   return (
     <Container maxWidth="lg">
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          sx={{ flex: 1 }}
-        >
-          Vehicle History
-        </Typography>
+        <Link href="/">
+          <DirectionsCarFilledTwoToneIcon />
+        </Link>
       </Toolbar>
       <Box>{children}</Box>
       <Paper
