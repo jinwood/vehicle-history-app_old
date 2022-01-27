@@ -2,17 +2,12 @@ import { Box, Button, TextField } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "../../../config";
-import { AuthType } from "../../../types";
+import { AuthType, Credentials } from "../../../types";
 import LoadingSpinner from "../LoadingSpinner";
-
-interface Values {
-  email: string;
-  password: string;
-}
 
 interface Props {
   type: AuthType;
-  handleAction: (values: Values) => void;
+  handleAction: (values: Credentials) => void;
   loading: boolean;
 }
 
@@ -21,11 +16,11 @@ const AuthForm = ({ handleAction, loading, type }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<Credentials>();
 
   const buttonText = type === AuthType.LOGIN ? "Sign In" : "Register";
 
-  const onSubmit = (formData: Values) => {
+  const onSubmit = (formData: Credentials) => {
     if (!formData.email || !formData.password) {
       return;
     }
