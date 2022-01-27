@@ -1,8 +1,9 @@
 //https://webdesign.tutsplus.com/tutorials/how-to-create-a-responsive-form-using-tailwindcss--cms-34128
 import { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { FuelType, VehicleManufacturer } from "../../../config";
+import { VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
+import { FuelType } from "../../../types";
 import Button from "./Button";
 import Group from "./Group";
 

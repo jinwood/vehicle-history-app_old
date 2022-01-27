@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/common/Form/AuthForm";
 import { useProvideAuth } from "../hooks/auth";
-import { AuthType } from "../types";
+import { AuthType, Credentials } from "../types";
 
 interface AuthProps {
   type: AuthType;
@@ -16,13 +16,7 @@ export default function Auth({ type }: AuthProps) {
   const { signIn, signUp, loading, error } = useProvideAuth();
   const [authType, setAuthType] = useState<AuthType>(flipType(type));
 
-  const handleSignIn = ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => {
+  const handleSignIn = ({ email, password }: Credentials) => {
     if (!email || !password) {
       return;
     }

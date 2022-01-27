@@ -1,6 +1,5 @@
+import { Link } from "@mui/material";
 import { User } from "firebase/auth";
-import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
 import { useHasVehicles } from "../hooks/vehicles";
 
 const Home = ({ user }: { user: User }) => {
@@ -11,10 +10,7 @@ const Home = ({ user }: { user: User }) => {
       {hasVehicles && <>You have a vehicle</>}
       {!hasVehicles && (
         <>
-          You don't have a vehicle.{" "}
-          <Link className="text-blue-600" to="add-vehicle">
-            Add one.
-          </Link>
+          You don't have a vehicle. <Link href="add-vehicle">Add one.</Link>
         </>
       )}
     </>

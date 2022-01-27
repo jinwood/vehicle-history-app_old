@@ -6,23 +6,12 @@ import Auth from "./pages/Auth";
 import AddVehicle from "./pages/AddVehicle";
 import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
 import { AuthType } from "./types";
-import {
-  Badge,
-  Box,
-  CssBaseline,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import AppBar from "./components/layout/AppBar";
-import { MenuIcon } from "@heroicons/react/outline";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
   const mdTheme = createTheme();
-
-  const open = true;
-  const toggleDrawer = () => {};
 
   return (
     <div className="App bg-slate-300">
