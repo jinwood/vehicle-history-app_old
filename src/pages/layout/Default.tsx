@@ -5,7 +5,6 @@ import {
   Link,
   Paper,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -16,7 +15,7 @@ import { Box } from "@mui/system";
 
 const Layout = ({ children }: any) => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth={false}>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Link href="/">
           <DirectionsCarFilledTwoToneIcon />
