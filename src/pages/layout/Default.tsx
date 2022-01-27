@@ -22,16 +22,13 @@ const Layout = ({ children }: any) => {
         </Link>
       </Toolbar>
       <Box>{children}</Box>
-      <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-        elevation={3}
-      >
+      <Box sx={{ width: "100%", mt: 3 }}>
         <BottomNavigation showLabels>
           <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
           <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
           <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
         </BottomNavigation>
-      </Paper>
+      </Box>
     </Container>
   );
 };
