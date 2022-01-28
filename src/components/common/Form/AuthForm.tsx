@@ -1,9 +1,8 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "../../../config";
 import { AuthType, Credentials } from "../../../types";
-import LoadingSpinner from "../LoadingSpinner";
 
 interface Props {
   type: AuthType;
