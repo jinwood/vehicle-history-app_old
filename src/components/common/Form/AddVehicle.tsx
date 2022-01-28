@@ -20,12 +20,16 @@ function AddVehicle({
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<Vehicle>();
 
   const onSubmit = (vehicle: Vehicle) => {
     handleAction(vehicle);
   };
+
+  console.log(watch("manufacturer"));
+  console.log(watch("model"));
 
   return (
     <Box

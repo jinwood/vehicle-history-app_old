@@ -1,10 +1,10 @@
-import FormControl from "@mui/material/FormControl";
+import FormControl, { FormControlProps } from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectProps } from "@mui/material/Select";
 import { ReactNode } from "react";
 import { Control, Controller } from "react-hook-form";
 
-interface Props extends SelectProps {
+interface Props extends FormControlProps {
   name: string;
   label: string;
   control: Control<any>;
@@ -21,9 +21,8 @@ const ReactHookFormSelect = ({
   ...props
 }: Props) => {
   const labelId = `${name}-label`;
-  const { fullWidth } = props;
   return (
-    <FormControl fullWidth={fullWidth}>
+    <FormControl {...props}>
       <InputLabel id={labelId}>{label}</InputLabel>
       <Controller
         render={() => (
@@ -33,6 +32,7 @@ const ReactHookFormSelect = ({
         )}
         name={name}
         control={control}
+        {...props}
       />
     </FormControl>
   );
