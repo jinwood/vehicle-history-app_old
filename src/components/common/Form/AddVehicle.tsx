@@ -8,12 +8,15 @@ import { VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
 import { FuelType } from "../../../types";
 import ControlledSelect from "./ControlledSelect";
+import Alert from "@mui/material/Alert";
 
-function AddVehicle({
-  handleAction,
-}: {
+interface Props {
   handleAction: (data: Vehicle) => void;
-}) {
+  error?: string;
+  loading: boolean;
+}
+
+export default function AddVehicle({ handleAction, loading, error }: Props) {
   const {
     register,
     handleSubmit,
@@ -136,13 +139,21 @@ function AddVehicle({
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <LoadingButton variant="contained" type="submit" sx={{ mt: 2 }}>
+          <LoadingButton
+            variant="contained"
+            type="submit"
+            sx={{ mt: 2 }}
+            loading={loading}
+          >
             Add Vehicle
           </LoadingButton>
         </Grid>
+        {error && error.length && (
+          <Grid item xs={12}>
+            <Alert severity="error">{error}</Alert>
+          </Grid>
+        )}
       </Box>
     </Box>
   );
 }
-
-export default AddVehicle;
