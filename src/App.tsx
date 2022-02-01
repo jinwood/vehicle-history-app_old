@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Layout from "./pages/layout/Default";
+import Layout from "./components/layout/Default";
 import Home from "./pages/Home";
-import Auth from "./pages/Auth";
+import LoginRegister from "./pages/LoginRegister";
 import AddVehicle from "./pages/AddVehicle";
 import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
 import { AuthType } from "./types";
@@ -20,10 +20,13 @@ const App = () => {
           <Router>
             <Layout>
               <Routes>
-                <Route path="/login" element={<Auth type={AuthType.LOGIN} />} />
+                <Route
+                  path="/login"
+                  element={<LoginRegister type={AuthType.LOGIN} />}
+                />
                 <Route
                   path="/register"
-                  element={<Auth type={AuthType.REGISTER} />}
+                  element={<LoginRegister type={AuthType.REGISTER} />}
                 />
 
                 {user ? (
@@ -36,7 +39,10 @@ const App = () => {
                     }
                   />
                 ) : (
-                  <Route path="/" element={<Auth type={AuthType.LOGIN} />} />
+                  <Route
+                    path="/"
+                    element={<LoginRegister type={AuthType.LOGIN} />}
+                  />
                 )}
                 <Route
                   path="/add-vehicle"

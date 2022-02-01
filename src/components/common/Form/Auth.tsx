@@ -10,7 +10,7 @@ interface Props {
   loading: boolean;
 }
 
-const AuthForm = ({ handleAction, loading, type }: Props) => {
+export default function Auth({ handleAction, loading, type }: Props) {
   const {
     register,
     handleSubmit,
@@ -61,6 +61,4 @@ const AuthForm = ({ handleAction, loading, type }: Props) => {
       </Box>
     </>
   );
-};
-
-export default AuthForm;
+}
