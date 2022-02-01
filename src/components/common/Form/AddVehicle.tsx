@@ -1,15 +1,13 @@
-//https://webdesign.tutsplus.com/tutorials/how-to-create-a-responsive-form-using-tailwindcss--cms-34128
 import LoadingButton from "@mui/lab/LoadingButton";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import { VehicleManufacturer } from "../../../config";
 import { Vehicle } from "../../../store/vehicle";
 import { FuelType } from "../../../types";
-import ReactHookFormSelect from "../Select";
+import ControlledSelect from "./ControlledSelect";
 
 function AddVehicle({
   handleAction,
@@ -20,16 +18,12 @@ function AddVehicle({
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
   } = useForm<Vehicle>();
 
   const onSubmit = (vehicle: Vehicle) => {
     handleAction(vehicle);
   };
-
-  console.log(watch("manufacturer"));
-  console.log(watch("model"));
 
   return (
     <Box
@@ -46,20 +40,17 @@ function AddVehicle({
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <ReactHookFormSelect
+            <ControlledSelect
               defaultValue=""
               name="manufacturer"
               label="Manufacturer"
               control={control}
+              values={Object.keys(VehicleManufacturer).map((v) => {
+                return { value: v, label: v };
+              })}
               variant="outlined"
               fullWidth
-            >
-              {Object.keys(VehicleManufacturer).map((key: any) => (
-                <MenuItem key={key} value={key}>
-                  {VehicleManufacturer[key as keyof typeof VehicleManufacturer]}
-                </MenuItem>
-              ))}
-            </ReactHookFormSelect>
+            />
           </Grid>
           <Grid item xs={12} lg={6}>
             <FormControl fullWidth>
@@ -88,20 +79,17 @@ function AddVehicle({
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <ReactHookFormSelect
+            <ControlledSelect
               name="fuelType"
               label="Fuel Type"
               control={control}
+              values={Object.keys(FuelType).map((v) => {
+                return { value: v, label: v };
+              })}
               defaultValue={FuelType.Petrol}
               variant="outlined"
               fullWidth
-            >
-              {Object.keys(FuelType).map((key: any) => (
-                <MenuItem key={key} value={key}>
-                  {FuelType[key as keyof typeof FuelType]}
-                </MenuItem>
-              ))}
-            </ReactHookFormSelect>
+            />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
