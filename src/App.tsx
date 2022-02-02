@@ -7,10 +7,17 @@ import AddVehicle from "./pages/AddVehicle";
 import { ProvideAuth, RequireAuth, useProvideAuth } from "./hooks/auth";
 import { AuthType } from "./types";
 import { Box, CssBaseline } from "@mui/material";
+import { ProvideVehicle, useProvideVehicle } from "./hooks/vehicles";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
   const { uid } = user || {};
+
+  const { getVehicle } = useProvideVehicle();
+  if (uid) {
+    getVehicle(String(uid));
+  }
+
   const mdTheme = createTheme();
 
   return (
@@ -35,7 +42,9 @@ const App = () => {
                     path="/"
                     element={
                       <ProvideAuth>
-                        <Home user={user} />
+                        <ProvideVehicle>
+                          <Home user={user} />
+                        </ProvideVehicle>
                       </ProvideAuth>
                     }
                   />
