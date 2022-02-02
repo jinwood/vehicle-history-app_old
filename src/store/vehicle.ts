@@ -25,6 +25,8 @@ export const createVehicle = async (vehicle: Vehicle) => {
   }
 };
 
+export async function getVehicle() {}
+
 export const getVehicles = async () => {
   const querySnapshot = await getDocs(collection(db, "vehicles"));
   const vehicles = querySnapshot.docs.map((doc) => {

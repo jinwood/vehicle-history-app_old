@@ -1,13 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import AddVehicle from "../components/common/Form/AddVehicle";
 import { useAddVehicle } from "../hooks/vehicles";
-import { Vehicle, createVehicle } from "../store/vehicle";
+import { Vehicle } from "../store/vehicle";
 
-export default function NewUser() {
-  const { error, loading, newVehicle } = useAddVehicle();
+interface Props {
+  uid?: string;
+}
+
+export default function NewUser({ uid }: Props) {
+  const { error, loading, addVehicle } = useAddVehicle();
   const navigate = useNavigate();
   const handleAction = (vehicle: Vehicle) => {
-    newVehicle(vehicle).then((result) => {
+    addVehicle(String(uid), vehicle).then((result) => {
       if (result) {
         navigate("/");
       }

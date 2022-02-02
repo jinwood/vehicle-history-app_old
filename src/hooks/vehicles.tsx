@@ -1,7 +1,11 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getVehicles, Vehicle } from "../store/vehicle";
+
+const vehicleContext = createContext<Vehicle[] | null>(null);
+
+export function ProvideVehicle({ children }: { children: ReactNode }) {}
 
 export const useHasVehicles = () => {
   const [hasVehicles, setHasVehicles] = useState(false);
@@ -16,10 +20,11 @@ export const useHasVehicles = () => {
 export const useAddVehicle = () => {
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
-  const newVehicle = async (vehicle: Vehicle) => {
+  const addVehicle = async (uid: string, vehicle: Vehicle) => {
     setLoading(true);
     try {
       const docRef = await addDoc(collection(db, "vehicles"), {
+        uid,
         ...vehicle,
       });
       setLoading(false);
@@ -30,5 +35,5 @@ export const useAddVehicle = () => {
       return false;
     }
   };
-  return { error, loading, newVehicle };
+  return { error, loading, addVehicle };
 };

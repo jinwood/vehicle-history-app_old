@@ -10,6 +10,7 @@ import { Box, CssBaseline } from "@mui/material";
 
 const App = () => {
   const { auth: user } = useProvideAuth();
+  const { uid } = user || {};
   const mdTheme = createTheme();
 
   return (
@@ -49,7 +50,7 @@ const App = () => {
                   element={
                     <RequireAuth>
                       <ProvideAuth>
-                        <AddVehicle />
+                        <AddVehicle uid={uid} />
                       </ProvideAuth>
                     </RequireAuth>
                   }
