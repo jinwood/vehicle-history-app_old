@@ -1,17 +1,21 @@
-import { Link } from "@mui/material";
 import { User } from "firebase/auth";
-import { useContext } from "react";
+import { useEffect } from "react";
 import MyVehicle from "../components/MyVehicle";
-import { useProvideVehicle, vehicleContext } from "../hooks/vehicles";
+import useGetVehicle from "../hooks/vehicles";
 
 const Home = ({ user }: { user: User }) => {
-  // const { getVehicle } = useProvideVehicle();
-  // getVehicle(user.uid);
-  // const vehicle = useContext(vehicleContext);
+  const { vehicle, loading, error, execute } = useGetVehicle();
+
+  useEffect(() => {
+    if (!vehicle) {
+      execute(user.uid);
+    }
+  }, [user.uid, vehicle, execute]);
+
   return (
     <>
       <div>You're logged in as {user?.email}</div>
-      {/* {vehicle && <h1>{vehicle.manufacturer}</h1>} */}
+      {vehicle && <MyVehicle vehicle={vehicle} />}
     </>
   );
 };

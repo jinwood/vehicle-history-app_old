@@ -1,24 +1,15 @@
 import { addDoc, collection } from "firebase/firestore";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { db } from "../firebase";
-import { getVehicles, queryVehicle, Vehicle } from "../store/vehicle";
+import { getVehicles, Vehicle } from "../store/vehicle";
 
-export const vehicleContext = createContext<Vehicle | null>(null);
-
-export function ProvideVehicle({ children }: { children: ReactNode }) {
-  const { vehicle } = useProvideVehicle();
-  const Provider = vehicleContext.Provider;
-
-  return <Provider value={vehicle}>{children}</Provider>;
-}
-
-export const useHasVehicles = () => {
+export const useHasVehicles = (uid: string) => {
   const [hasVehicles, setHasVehicles] = useState(false);
   useEffect(() => {
-    getVehicles().then((vehicles) => {
-      setHasVehicles(vehicles.length > 0);
+    getVehicles(uid).then((vehicles) => {
+      setHasVehicles(!!vehicles);
     });
-  }, []);
+  }, [uid]);
   return hasVehicles;
 };
 
@@ -43,16 +34,16 @@ export const useAddVehicle = () => {
   return { error, loading, addVehicle };
 };
 
-export function useProvideVehicle() {
-  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
+export default function useGetVehicle() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
+  const [vehicle, setVehicle] = useState<Vehicle | undefined>();
 
-  const getVehicle = async (uid: string) => {
+  const execute = async (uid: string) => {
+    console.log("useGetVehicle", uid);
     setLoading(true);
     try {
-      const vehicle = await queryVehicle(uid);
-      console.log("v", vehicle);
+      const vehicle = await getVehicles(uid);
       setVehicle(vehicle);
       setLoading(false);
     } catch (error) {
@@ -61,5 +52,10 @@ export function useProvideVehicle() {
     }
   };
 
-  return { vehicle, loading, error, getVehicle };
+  return {
+    loading,
+    error,
+    vehicle,
+    execute: useCallback(execute, []),
+  };
 }

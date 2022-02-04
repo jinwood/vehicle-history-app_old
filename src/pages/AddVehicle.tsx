@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import AddVehicle from "../components/common/Form/AddVehicle";
-import { useAddVehicle, useProvideVehicle } from "../hooks/vehicles";
+import useGetVehicle, { useAddVehicle } from "../hooks/vehicles";
 import { Vehicle } from "../store/vehicle";
 
 interface Props {
@@ -8,13 +8,13 @@ interface Props {
 }
 
 export default function NewUser({ uid }: Props) {
+  const { execute } = useGetVehicle();
   const { error, loading, addVehicle } = useAddVehicle();
-  const { getVehicle } = useProvideVehicle();
   const navigate = useNavigate();
   const handleAction = (vehicle: Vehicle) => {
     addVehicle(String(uid), vehicle).then((result) => {
       if (result) {
-        getVehicle(String(uid)).then(() => {
+        execute(String(uid)).then(() => {
           navigate("/");
         });
       }

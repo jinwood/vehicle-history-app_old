@@ -61,13 +61,12 @@ export async function queryVehicle(uid: string): Promise<Vehicle> {
   }
 }
 
-export const getVehicles = async () => {
+export const getVehicles = async (uid: string) => {
   const querySnapshot = await getDocs(collection(db, "vehicles"));
   const vehicles = querySnapshot.docs.map((doc) => {
     return {
-      id: doc.id,
-      ...doc.data(),
+      ...(doc.data() as Vehicle),
     };
-  });
+  })[0];
   return vehicles;
 };
