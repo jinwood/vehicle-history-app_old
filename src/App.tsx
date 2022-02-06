@@ -21,7 +21,9 @@ const App = () => {
   return (
     <div className="App bg-slate-300">
       <ThemeProvider theme={mdTheme}>
-        <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{ display: "flex", height: "100vh", backgroundColor: "#e0e0e5" }}
+        >
           <CssBaseline />
           <Router>
             <Layout>

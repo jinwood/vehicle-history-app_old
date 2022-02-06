@@ -13,12 +13,7 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
         sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
       >
         <CardContent>
-          <Typography
-            component="div"
-            variant="h5"
-            // sx={{ fontSize: 14 }}
-            gutterBottom
-          >
+          <Typography component="div" variant="h5" gutterBottom>
             Your vehicle
           </Typography>
           <Typography component="div" variant="h6">
