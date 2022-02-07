@@ -1,20 +1,7 @@
 import { addDoc, collection, getDocs } from "@firebase/firestore";
-import { doc, getDoc, query, where } from "firebase/firestore";
-import { VehicleManufacturer } from "../config";
+import { query, where } from "firebase/firestore";
 import { db } from "../firebase";
-
-export interface Vehicle {
-  uid: string;
-  manufacturer: VehicleManufacturer;
-  model: string;
-  year: number;
-  engineSize: number;
-  fuelType: string;
-  purchasePrice: number;
-  purchaseDate: Date;
-  mileage: number;
-  notes: string;
-}
+import { Vehicle } from "../types";
 
 export const createVehicle = async (vehicle: Vehicle) => {
   try {
@@ -50,6 +37,7 @@ export async function queryVehicle(uid: string): Promise<Vehicle> {
         purchaseDate: data?.purchaseDate,
         mileage: data?.mileage,
         notes: data?.notes,
+        images: [],
       };
       console.log(`returning vehicle ${vehicle.manufacturer}`);
       return vehicle;

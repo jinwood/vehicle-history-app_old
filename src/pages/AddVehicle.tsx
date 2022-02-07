@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import AddVehicle from "../components/common/Form/AddVehicle";
 import useGetVehicle, { useAddVehicle } from "../hooks/vehicles";
-import { Vehicle } from "../store/vehicle";
+import { Vehicle } from "../types";
 
 interface Props {
   uid?: string;

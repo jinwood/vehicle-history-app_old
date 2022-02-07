@@ -1,14 +1,29 @@
+import { LoadingButton } from "@mui/lab";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Vehicle } from "../../store/vehicle";
+import { useRef } from "react";
+import { useSaveImage } from "../../hooks/media";
+import { Vehicle } from "../../types";
 
 export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
+  const { error, loading, imagePath, saveImage } = useSaveImage();
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const openDialog = () => {
+    inputFile?.current?.addEventListener("change", onDialogClose, false);
+    if (inputFile && inputFile.current) {
+      inputFile.current.click();
+    }
+  };
+
+  const onDialogClose = () => {
+    if (inputFile && inputFile.current?.files?.length) {
+      saveImage(vehicle.uid, "vehicles", inputFile.current?.files[0]);
+    }
+  };
+
   return (
     <>
       <Box
@@ -26,13 +41,26 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
               Your vehicle
             </Typography>
           </Container>
+          <Typography component="div" variant="h6">
+            {vehicle.manufacturer} {vehicle.model}
+          </Typography>
           <Container sx={{ pt: 2, pb: 1 }}>
-            <Typography component="div" variant="h6">
-              {vehicle.manufacturer} {vehicle.model}
-            </Typography>
+            {!vehicle?.images?.length && (
+              <Typography component="div" variant="body1">
+                Your vehicle doesn't have an image
+              </Typography>
+            )}
+            <LoadingButton
+              variant="contained"
+              loading={loading}
+              onClick={openDialog}
+            >
+              Upload image
+            </LoadingButton>
           </Container>
         </Paper>
       </Box>
+      <input type="file" ref={inputFile} style={{ display: "none" }} />
     </>
   );
 }

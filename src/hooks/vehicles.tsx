@@ -1,7 +1,8 @@
 import { addDoc, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 import { db } from "../firebase";
-import { getVehicles, Vehicle } from "../store/vehicle";
+import { getVehicles } from "../store/vehicle";
+import { Vehicle } from "../types";
 
 export const useHasVehicles = (uid: string) => {
   const [hasVehicles, setHasVehicles] = useState(false);

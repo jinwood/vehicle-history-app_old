@@ -5,8 +5,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import { VehicleManufacturer } from "../../../config";
-import { Vehicle } from "../../../store/vehicle";
-import { FuelType } from "../../../types";
+import { FuelType, Vehicle } from "../../../types";
 import ControlledSelect from "./ControlledSelect";
 import Alert from "@mui/material/Alert";
 

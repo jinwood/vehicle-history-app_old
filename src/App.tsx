@@ -12,10 +12,6 @@ const App = () => {
   const { auth: user } = useProvideAuth();
   const { uid } = user || {};
 
-  if (uid) {
-    // getVehicle(String(uid));
-  }
-
   const mdTheme = createTheme();
 
   return (

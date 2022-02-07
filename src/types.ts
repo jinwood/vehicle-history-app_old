@@ -1,3 +1,5 @@
+import { VehicleManufacturer } from "./config";
+
 export enum AuthType {
   UNKNOWN = "UNKNOWN",
   LOGIN = "LOGIN",
@@ -15,4 +17,18 @@ export enum FuelType {
 export interface Credentials {
   email: string;
   password: string;
+}
+
+export interface Vehicle {
+  uid: string;
+  manufacturer: VehicleManufacturer;
+  model: string;
+  year: number;
+  engineSize: number;
+  fuelType: string;
+  purchasePrice: number;
+  purchaseDate: Date;
+  mileage: number;
+  notes: string;
+  images: string[];
 }
