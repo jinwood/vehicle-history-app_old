@@ -22,4 +22,5 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
+console.log("init complete");
 export { analytics, app, db };

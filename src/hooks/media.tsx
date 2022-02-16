@@ -11,6 +11,7 @@ export const useSaveImage = () => {
     setLoading(true);
 
     try {
+      console.log("uploading image");
       path = await uploadImage(file, `${category}/${fileName}`);
       setImagePath(path);
     } catch (error) {
