@@ -1,14 +1,15 @@
+import { getStorage, ref } from "firebase/storage";
 import { LoadingButton } from "@mui/lab";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { useUploadFile } from "react-firebase-hooks/storage";
 import { useRef } from "react";
-import { useSaveImage } from "../../hooks/media";
 import { Vehicle } from "../../types";
 
 export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
-  const { error, loading, imagePath, saveImage } = useSaveImage();
+  const [uploadFile, uploading, snapshot, error] = useUploadFile();
   const inputFile = useRef<HTMLInputElement | null>(null);
 
   const openDialog = () => {
@@ -20,8 +21,16 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
 
   const onDialogClose = () => {
     if (inputFile && inputFile.current?.files?.length) {
-      console.log(1);
-      saveImage(vehicle.uid, "vehicles", inputFile.current?.files[0]);
+      const storage = getStorage();
+      const storageRef = ref(
+        storage,
+        "images/" + inputFile.current.files[0].name
+      );
+      const result = uploadFile(storageRef, inputFile.current.files[0], {
+        contentType: "image/jpeg",
+      });
+
+      alert(`Result: ${JSON.stringify(result)}`);
     }
   };
 
@@ -45,7 +54,7 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
           <Typography component="div" variant="h6">
             {vehicle.manufacturer} {vehicle.model}
           </Typography>
-          {!imagePath && (
+          {/* {!imagePath && (
             <Container sx={{ pt: 2, pb: 1 }}>
               {!vehicle?.images?.length && (
                 <Typography component="div" variant="body1">
@@ -66,10 +75,16 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
               {imagePath}
               <img src={imagePath} alt="vehicle" width="100%" height="100%" />
             </>
-          )}
+          )} */}
         </Paper>
       </Box>
       <input type="file" ref={inputFile} style={{ display: "none" }} />
+      {error && <strong>Error: {error.message}</strong>}
+      {uploading && <span>Uploading file...</span>}
+      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>}
+      {inputFile && inputFile.current && (
+        <span>Selected file: {inputFile.current.files[0]}</span>
+      )}
     </>
   );
 }
