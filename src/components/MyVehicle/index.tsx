@@ -82,9 +82,6 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
       {error && <strong>Error: {error.message}</strong>}
       {uploading && <span>Uploading file...</span>}
       {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>}
-      {inputFile && inputFile.current && (
-        <span>Selected file: {inputFile.current.files[0]}</span>
-      )}
     </>
   );
 }
