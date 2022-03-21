@@ -1,17 +1,19 @@
 import Link from "@mui/material/Link";
-import { User } from "firebase/auth";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import MyVehicle from "../components/MyVehicle";
+import { useProvideAuth } from "../hooks/auth";
 import useGetVehicle from "../hooks/vehicles";
-import { logout } from "../store/slices/userSlice";
+import { selectUser } from "../store/slices/userSlice";
 
-const Home = ({ user }: { user: User }) => {
+const Home = () => {
+  const user = useSelector(selectUser);
+  const isSignedIn = !!user;
   const { vehicle, loading, error, execute } = useGetVehicle();
-  const dispatch = useDispatch();
+  const { signOut } = useProvideAuth();
 
   const handleLogout = () => {
-    dispatch(logout());
+    signOut();
   };
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const Home = ({ user }: { user: User }) => {
     <>
       {error && <div>Something bad happened: {error}</div>}
       {loading && <div>Loading...</div>}
-      {!loading && user && (
+      {!loading && isSignedIn && (
         <div>
           <span>You're logged in as {user?.email}</span>{" "}
           <Link onClick={handleLogout}>Logout</Link>
