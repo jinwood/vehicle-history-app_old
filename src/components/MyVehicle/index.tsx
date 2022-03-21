@@ -54,28 +54,6 @@ export default function MyVehicle({ vehicle }: { vehicle: Vehicle }) {
           <Typography component="div" variant="h6">
             {vehicle.manufacturer} {vehicle.model}
           </Typography>
-          {/* {!imagePath && (
-            <Container sx={{ pt: 2, pb: 1 }}>
-              {!vehicle?.images?.length && (
-                <Typography component="div" variant="body1">
-                  Your vehicle doesn't have an image
-                </Typography>
-              )}
-              <LoadingButton
-                variant="contained"
-                // loading={loading}
-                onClick={openDialog}
-              >
-                Upload image
-              </LoadingButton>
-            </Container>
-          )}
-          {imagePath && (
-            <>
-              {imagePath}
-              <img src={imagePath} alt="vehicle" width="100%" height="100%" />
-            </>
-          )} */}
         </Paper>
       </Box>
       <input type="file" ref={inputFile} style={{ display: "none" }} />

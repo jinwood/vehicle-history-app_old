@@ -14,7 +14,9 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useDispatch } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { login, logout } from "../store/slices/userSlice";
 
 const authContext = createContext<User | null | null>(null);
 
@@ -43,6 +45,7 @@ export function useAuth() {
 
 export function useProvideAuth() {
   const auth = getAuth();
+  const dispatch = useDispatch();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -53,6 +56,7 @@ export function useProvideAuth() {
       .then((response) => {
         setLoading(false);
         setUser(response.user);
+        dispatch(login({ ...response.user, uid: response.user.uid }));
         return response.user;
       })
       .catch((error) => {
@@ -73,6 +77,7 @@ export function useProvideAuth() {
   const signOut = () => {
     auth.signOut();
     setUser(null);
+    dispatch(logout());
   };
 
   const sendUserPasswordResetEmail = (email: string) => {

@@ -21,7 +21,7 @@ export default function LoginRegister({ type }: AuthProps) {
       return;
     }
     if (authType === AuthType.LOGIN) {
-      signIn(email, password).then(() => navigate("/"));
+      signIn(email, password);
     } else {
       signUp(email, password).then(() => navigate("/"));
     }
