@@ -6,20 +6,22 @@ import Home from "./pages/Home";
 import LoginRegister from "./pages/LoginRegister";
 import AddVehicle from "./pages/AddVehicle";
 import { AuthType } from "./types";
-import { Box, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Box from "@mui/system/Box";
 
 const App = () => {
+  const [fresh, setFresh] = useState(true);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const auth = getAuth();
-  const { uid } = user || {};
 
   useEffect(() => {
     onAuthStateChanged(auth, (userAuth) => {
       if (userAuth) {
+        setFresh(false);
         dispatch(
           login({
             email: userAuth.email,
@@ -29,6 +31,7 @@ const App = () => {
           })
         );
       } else {
+        setFresh(false);
         dispatch(logout());
       }
     });
@@ -53,9 +56,8 @@ const App = () => {
                   element={<LoginRegister type={AuthType.REGISTER} />}
                 />
 
-                {user ? (
-                  <Route path="/" element={<Home />} />
-                ) : (
+                {user && !fresh && <Route path="/" element={<Home />} />}
+                {!user && !fresh && (
                   <Route
                     path="/"
                     element={<LoginRegister type={AuthType.LOGIN} />}

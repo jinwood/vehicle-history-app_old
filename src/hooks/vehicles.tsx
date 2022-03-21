@@ -46,13 +46,11 @@ export default function useGetVehicle() {
   const [vehicle, setVehicle] = useState<Vehicle | undefined>();
 
   const execute = async (uid: string) => {
-    console.log("execute", uid);
     setLoading(true);
     try {
       const vehicle = await getVehicles(uid);
       setVehicle(vehicle);
       setLoading(false);
-      console.log("dispatching");
       dispatch(getVehicle({ ...vehicle }));
     } catch (error) {
       setLoading(false);

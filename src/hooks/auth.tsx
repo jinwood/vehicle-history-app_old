@@ -75,7 +75,6 @@ export function useProvideAuth() {
   };
 
   const signOut = () => {
-    console.log("signOut");
     auth.signOut();
     setUser(null);
     dispatch(logout());

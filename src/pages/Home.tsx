@@ -5,7 +5,7 @@ import MyVehicle from "../components/MyVehicle";
 import { useProvideAuth } from "../hooks/auth";
 import useGetVehicle from "../hooks/vehicles";
 import { isSignedIn, selectUser } from "../store/slices/userSlice";
-import { getVehicle, selectVehicle } from "../store/slices/vehicleSlice";
+import { selectVehicle } from "../store/slices/vehicleSlice";
 
 const Home = () => {
   const user = useSelector(selectUser);
@@ -14,14 +14,12 @@ const Home = () => {
   const { signOut } = useProvideAuth();
   const vehicle = useSelector(selectVehicle);
   const hasVehicle = !!vehicle?.vehicle;
-  console.log("vehicle", hasVehicle);
+
   useEffect(() => {
     if (!hasVehicle) {
       execute(user.uid);
     }
   }, [execute, hasVehicle, user.uid, vehicle]);
-  if (!vehicle) {
-  }
 
   const handleLogout = () => {
     signOut();
@@ -35,7 +33,7 @@ const Home = () => {
           <Link onClick={handleLogout}>Logout</Link>
         </div>
       )}
-      {vehicle && <MyVehicle />}
+      {hasVehicle && <MyVehicle />}
     </>
   );
 };

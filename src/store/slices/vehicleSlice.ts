@@ -14,7 +14,6 @@ export const vehicleSlice = createSlice({
   },
   reducers: {
     getVehicle: (state, action) => {
-      console.log("action", action);
       state.vehicle = action.payload;
     },
     createVehicle: (state, action) => {
