@@ -1,6 +1,8 @@
 import { addDoc, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { db } from "../firebase";
+import { createVehicle, getVehicle } from "../store/slices/vehicleSlice";
 import { getVehicles } from "../store/vehicle";
 import { Vehicle } from "../types";
 
@@ -15,6 +17,7 @@ export const useHasVehicles = (uid: string) => {
 };
 
 export const useAddVehicle = () => {
+  const dispatch = useDispatch();
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
   const addVehicle = async (uid: string, vehicle: Vehicle) => {
@@ -25,6 +28,7 @@ export const useAddVehicle = () => {
         uid,
       });
       setLoading(false);
+      dispatch(createVehicle({ ...vehicle, id: docRef.id }));
       return (await docRef?.id.length) > 0;
     } catch (error) {
       setLoading(false);
@@ -36,17 +40,20 @@ export const useAddVehicle = () => {
 };
 
 export default function useGetVehicle() {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
   const [vehicle, setVehicle] = useState<Vehicle | undefined>();
 
   const execute = async (uid: string) => {
-    console.log("useGetVehicle", uid);
+    console.log("execute", uid);
     setLoading(true);
     try {
       const vehicle = await getVehicles(uid);
       setVehicle(vehicle);
       setLoading(false);
+      console.log("dispatching");
+      dispatch(getVehicle({ ...vehicle }));
     } catch (error) {
       setLoading(false);
       setError(String(error));

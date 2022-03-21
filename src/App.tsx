@@ -39,9 +39,7 @@ const App = () => {
   return (
     <div className="App bg-slate-300">
       <ThemeProvider theme={mdTheme}>
-        <Box
-          sx={{ display: "flex", height: "100vh", backgroundColor: "#e0e0e5" }}
-        >
+        <Box sx={{ display: "flex", height: "100vh" }}>
           <CssBaseline />
           <Router>
             <Layout>
@@ -63,7 +61,7 @@ const App = () => {
                     element={<LoginRegister type={AuthType.LOGIN} />}
                   />
                 )}
-                <Route path="/add-vehicle" element={<AddVehicle uid={uid} />} />
+                <Route path="/add-vehicle" element={<AddVehicle />} />
               </Routes>
             </Layout>
           </Router>

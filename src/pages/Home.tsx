@@ -5,34 +5,37 @@ import MyVehicle from "../components/MyVehicle";
 import { useProvideAuth } from "../hooks/auth";
 import useGetVehicle from "../hooks/vehicles";
 import { isSignedIn, selectUser } from "../store/slices/userSlice";
+import { getVehicle, selectVehicle } from "../store/slices/vehicleSlice";
 
 const Home = () => {
   const user = useSelector(selectUser);
+  const { execute } = useGetVehicle();
   const signedIn = useSelector(isSignedIn);
-  const { vehicle, loading, error, execute } = useGetVehicle();
   const { signOut } = useProvideAuth();
+  const vehicle = useSelector(selectVehicle);
+  const hasVehicle = !!vehicle?.vehicle;
+  console.log("vehicle", hasVehicle);
+  useEffect(() => {
+    if (!hasVehicle) {
+      execute(user.uid);
+    }
+  }, [execute, hasVehicle, user.uid, vehicle]);
+  if (!vehicle) {
+  }
 
   const handleLogout = () => {
     signOut();
   };
 
-  useEffect(() => {
-    if (!vehicle) {
-      execute(user.uid);
-    }
-  }, [user.uid, vehicle, execute]);
-
   return (
     <>
-      {error && <div>Something bad happened: {error}</div>}
-      {loading && <div>Loading...</div>}
-      {!loading && signedIn && (
+      {signedIn && (
         <div>
           <span>You're logged in as {user?.email}</span>{" "}
           <Link onClick={handleLogout}>Logout</Link>
         </div>
       )}
-      {vehicle && <MyVehicle vehicle={vehicle} />}
+      {vehicle && <MyVehicle />}
     </>
   );
 };
