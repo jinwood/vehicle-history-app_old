@@ -3,6 +3,7 @@ import "firebase/auth";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 
 console.log("in firebase");
@@ -20,7 +21,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
 console.log("init complete");
-export { analytics, app, db };
+export { analytics, app, db, storage };

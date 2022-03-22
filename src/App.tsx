@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Box from "@mui/system/Box";
+import VehicleImages from "./pages/vehicle/vehicle-images";
 
 const App = () => {
   const [fresh, setFresh] = useState(true);
@@ -64,6 +65,7 @@ const App = () => {
                   />
                 )}
                 <Route path="/add-vehicle" element={<AddVehicle />} />
+                <Route path="/vehicle-images" element={<VehicleImages />} />
               </Routes>
             </Layout>
           </Router>
