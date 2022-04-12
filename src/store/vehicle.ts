@@ -37,7 +37,7 @@ export async function queryVehicle(uid: string): Promise<Vehicle> {
         purchaseDate: data?.purchaseDate,
         mileage: data?.mileage,
         notes: data?.notes,
-        images: [],
+        mediaItems: [],
       };
       console.log(`returning vehicle ${vehicle.manufacturer}`);
       return vehicle;

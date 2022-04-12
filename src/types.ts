@@ -1,5 +1,11 @@
 import { VehicleManufacturer } from "./config";
 
+export enum MediaType {
+  IMAGE = "IMAGE",
+  VIDEO = "VIDEO",
+  AUDIO = "AUDIO",
+}
+
 export enum AuthType {
   UNKNOWN = "UNKNOWN",
   LOGIN = "LOGIN",
@@ -19,6 +25,15 @@ export interface Credentials {
   password: string;
 }
 
+export interface MediaItem {
+  uid: string;
+  mediaType: MediaType;
+  url: string;
+  name?: string;
+  size: number;
+  createdAt: Date;
+}
+
 export interface Vehicle {
   uid: string;
   manufacturer: VehicleManufacturer;
@@ -30,5 +45,5 @@ export interface Vehicle {
   purchaseDate: Date;
   mileage: number;
   notes: string;
-  images: string[];
+  mediaItems: MediaItem[];
 }

@@ -51,7 +51,9 @@ export default function useGetVehicle() {
       const vehicle = await getVehicles(uid);
       setVehicle(vehicle);
       setLoading(false);
-      dispatch(getVehicle({ ...vehicle }));
+
+      const payload = vehicle ? { ...vehicle } : undefined;
+      dispatch(getVehicle(payload));
     } catch (error) {
       setLoading(false);
       setError(String(error));

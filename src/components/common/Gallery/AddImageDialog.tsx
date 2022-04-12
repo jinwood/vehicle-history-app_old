@@ -27,13 +27,13 @@ export default function VehicleImages(props: Props) {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!file) return;
+    if (!file || !vehicle) return;
     uploadFile(file, vehicle.uid, "image");
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Upload an image of your {vehicle.model}</DialogTitle>
+      <DialogTitle>Upload an image of your {vehicle?.model}</DialogTitle>
       <Container sx={{ p: 2 }}>
         <Typography component="div" variant="h5"></Typography>
         <form onSubmit={onSubmit}>

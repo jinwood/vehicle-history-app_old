@@ -13,6 +13,7 @@ const Home = () => {
   const signedIn = useSelector(isSignedIn);
   const { signOut } = useProvideAuth();
   const vehicle = useSelector(selectVehicle);
+  console.log("vehicle", vehicle);
   const hasVehicle = !!vehicle?.vehicle;
 
   useEffect(() => {
