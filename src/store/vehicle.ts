@@ -27,7 +27,7 @@ export async function queryVehicle(uid: string): Promise<Vehicle> {
 
     if (data.exists()) {
       const vehicle: Vehicle = {
-        uid: data.id,
+        vehicleId: data.id,
         manufacturer: data?.manufacturer,
         model: data?.model,
         year: data?.year,

@@ -28,7 +28,7 @@ export default function VehicleImages(props: Props) {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!file || !vehicle) return;
-    uploadFile(file, vehicle.uid, "image");
+    uploadFile(file, vehicle.vehicleId, "image");
   };
 
   return (

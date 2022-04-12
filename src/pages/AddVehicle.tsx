@@ -1,5 +1,8 @@
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import AddVehicle from "../components/common/Form/AddVehicle";
+import PageContent from "../components/common/PageContent";
 import useGetVehicle, { useAddVehicle } from "../hooks/vehicles";
 import { Vehicle } from "../types";
 
@@ -22,11 +25,17 @@ export default function NewUser({ uid }: Props) {
   };
   return (
     <div>
-      <AddVehicle
-        error={error}
-        loading={loading}
-        handleAction={(vehicle: Vehicle) => handleAction(vehicle)}
-      />
+      <PageContent>
+        <Typography variant="h6">
+          You don't have a vehicle. Let's add one
+        </Typography>
+
+        <AddVehicle
+          error={error}
+          loading={loading}
+          handleAction={(vehicle: Vehicle) => handleAction(vehicle)}
+        />
+      </PageContent>
     </div>
   );
 }

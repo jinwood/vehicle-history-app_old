@@ -35,7 +35,7 @@ export interface MediaItem {
 }
 
 export interface Vehicle {
-  uid: string;
+  vehicleId: string;
   manufacturer: VehicleManufacturer;
   model: string;
   year: number;
