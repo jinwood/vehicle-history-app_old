@@ -41,7 +41,7 @@ export const useAddVehicle = () => {
 
 export default function useGetVehicle() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
   const [vehicle, setVehicle] = useState<Vehicle | undefined>();
 

@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -11,7 +10,7 @@ import NewUser from "./AddVehicle";
 
 const Home = () => {
   const user = useSelector(selectUser);
-  const { execute } = useGetVehicle();
+  const { execute, loading } = useGetVehicle();
   const signedIn = useSelector(isSignedIn);
   const { signOut } = useProvideAuth();
   const vehicle = useSelector(selectVehicle);
@@ -36,7 +35,7 @@ const Home = () => {
         </div>
       )}
       {hasVehicle && <MyVehicle />}
-      {!hasVehicle && (
+      {!hasVehicle && !loading && (
         <>
           <NewUser />
         </>

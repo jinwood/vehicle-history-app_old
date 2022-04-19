@@ -35,6 +35,9 @@ const App = () => {
         dispatch(logout());
       }
     });
+    return () => {
+      auth.signOut();
+    };
   }, [auth, dispatch]);
 
   const mdTheme = createTheme();
