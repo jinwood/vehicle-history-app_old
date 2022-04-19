@@ -1,18 +1,18 @@
 import { ref, uploadBytesResumable } from "@firebase/storage";
-import { collection } from "firebase/firestore";
+import { collection, doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
 
 export const uploadFile = (
   file: File,
-  vehicleUid: string,
+  vehicleId: string,
   mediaType: string
 ) => {
   if (!file) return;
 
   const storageRef = ref(
     storage,
-    `vehicles/${vehicleUid}/${mediaType}/${file.name}`
+    `vehicles/${vehicleId}/${mediaType}/${file.name}`
   );
 
   const uploadTask = uploadBytesResumable(storageRef, file);
@@ -31,14 +31,15 @@ export const uploadFile = (
       await getDownloadURL(uploadTask.snapshot.ref).then(
         (url) => (mediaURL = url)
       );
+      addMediaToVehicle(vehicleId, mediaType, mediaURL);
     }
   );
 };
 
-const addMediaToVehicle = (
-  vehicleUid: string,
+const addMediaToVehicle = async (
+  vehicleId: string,
   mediaType: string,
   mediaURL: string
 ) => {
-  const vehicleRef = collection(db, "vehicles", vehicleUid);
+  const vehicleDoc = doc(db, `vehicles/${vehicleId}`);
 };
