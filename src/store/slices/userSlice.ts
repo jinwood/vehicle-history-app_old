@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "firebase/auth";
+
+interface User {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string | null;
+  providerId: string;
+}
 
 type UserState = {
   user: {

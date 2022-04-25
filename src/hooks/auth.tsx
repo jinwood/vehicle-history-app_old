@@ -56,7 +56,16 @@ export function useProvideAuth() {
       .then((response) => {
         setLoading(false);
         setUser(response.user);
-        dispatch(login({ ...response.user, uid: response.user.uid }));
+        dispatch(
+          login({
+            displayName: response.user.displayName,
+            email: response.user.email,
+            phoneNumber: response.user.phoneNumber,
+            photoURL: response.user.photoURL,
+            providerId: response.user.providerId,
+            uid: response.user.uid,
+          })
+        );
         return response.user;
       })
       .catch((error) => {
