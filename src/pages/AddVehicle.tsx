@@ -1,16 +1,16 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddVehicle from "../components/common/Form/AddVehicle";
 import PageContent from "../components/common/PageContent";
 import useGetVehicle, { useAddVehicle } from "../hooks/vehicles";
+import { selectUser } from "../store/slices/userSlice";
 import { Vehicle } from "../types";
 
-interface Props {
-  uid?: string;
-}
-
-export default function NewUser({ uid }: Props) {
+export default function NewUser() {
+  const user = useSelector(selectUser);
+  const { uid } = user;
   const { execute } = useGetVehicle();
   const { error, loading, addVehicle } = useAddVehicle();
   const navigate = useNavigate();
